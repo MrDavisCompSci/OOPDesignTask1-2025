@@ -3,66 +3,85 @@ using System;
 class Program
 {
     static void Main()
-    {
-        // Here is your empty program!
-        Console.Clear();
-        Console.WriteLine("Hello world!");
-        
-        // thisFish = Fish("little fish")
-	    // thisFish.setMaxSize(3)
-	    // thisDuck = Duck("little duck")
-	    // FOR count = 1 To 3
-	    //   thisDuck.feed()
-	    //   Output(thisDuck.getState())
-	    //   thisFish.feed()
-	    //   print(thisFish.getState())
-	    // END FOR
+    {   
+        Fish thisFish = new Fish("little fish");
+	    thisFish.SetMaxSize(3);
+	    Duck thisDuck = new Duck("little duck");
+	    for (int i = 0;i < 3;i++)
+		{
+			thisDuck.Feed();
+			Console.WriteLine(thisDuck.GetState());
+			thisFish.Feed();
+			Console.WriteLine(thisFish.GetState());
+		}
     }
 }
 
-// Animal = CLASS
-//   Protected
-//     state: String 
-//     size: Integer
-//   Public
-//     Constructor(s)
-//       state = s
-//       size = 0
+class Animal
+{
+	protected string state;
+	protected int size;
+
+	public Animal(string s)
+	{
+		state = s;
+		size = 0;
+	}
+
+	public virtual void Feed()
+	{
+		size++;
+		Console.WriteLine($"{state} fed!");
+	}
+
+	public string GetState()
+	{
+		return state;
+	}
+
+	public int GetSize()
+	{
+		return size;
+	}
+}
+
+class Fish : Animal
+{
+	private int maxSize;
+
+	public Fish(string s) : base(s)
+	{} 
+
+	public void SetMaxSize(int n)
+	{
+		maxSize = n;
+	}
+
+	public override void Feed()
+	{
+		size += 2;
+		Console.WriteLine($"{state} fed!");
+		if (size >= maxSize)
+		{
+			state = "BIG FISH";
+		}
+	}
+}
  
-//     Procedure feed()
-//       size = size + 1
-//       OUTPUT state, " fed"
+class Duck : Animal
+{
+	public Duck(string s) : base(s){}
+	public override void Feed()
+	{
+		base.Feed();
+		if (size == 5)
+		{
+			state = "BIG DUCK";
+		}
+	}
+}
  
-//     Function getState()
-//       RETURN state
- 
-//     Function getSize()
-//       RETURN size
- 
-// END CLASS
- 
-// Fish = SubClass(Animal)
-//   Private
-//     maxSize : Integer
-//   Public
-//     Procedure setMaxSize(m)
-//       maxSize = m
-//     Procedure feed(Override)
-//       size += 2
-//       OUTPUT state, " fed"
-//       IF size >= maxSize THEN
-//         state = "BIG FISH"
-// 	    END IF
-// END CLASS
- 
-// Duck = Subclass(Animal)
-//   Public
-//     Procedure feed(Override)
-//       Animal.feed()
-//       IF size = 5 THEN
-//         state = "BIG DUCK" 
-// 	END IF
-// END CLASS
+
  
 	 
 	
